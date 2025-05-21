@@ -21,14 +21,15 @@ public class WebSecurityConfig {
 
         httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/posts").permitAll()
-                        .requestMatchers("/posts/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/posts", "error", "/public").permitAll()
+                        .requestMatchers("/posts/**").hasAnyRole("ADMIN") //all routes after /posts/...
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults());
 
         return httpSecurity.build();
     }
 
+    //we use this for testing-purpose only, else we store the username and password in the database
     @Bean
     UserDetailsService myInMemoryUserDetailsService() {
         UserDetails normalUser = User
