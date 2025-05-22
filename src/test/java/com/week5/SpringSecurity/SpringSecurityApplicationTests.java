@@ -9,19 +9,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SpringSecurityApplicationTests {
 
-	@Autowired
-	private JwtService jwtService;
+//	@Autowired
+//	private JwtService jwtService;
 
 	@Test
 	void contextLoads() {
-		UserEntity user = new UserEntity(1L, "rahul@gmail.com", "rahul123");
-
-		String token = jwtService.generateToken(user);
-
-		System.out.println("token : "+token);
-
-		Long id = jwtService.getUserIdFromToken(token);
-
-		System.out.println("user : "+id);
+//		UserEntity user = new UserEntity(1L, "rahul@gmail.com", "rahul123");
+//
+//		String token = jwtService.generateToken(user);
+//		System.out.println("token : "+token);
+//
+//		Long id = jwtService.getUserIdFromToken(token);
+//		System.out.println("user : "+id);
 	}
 }

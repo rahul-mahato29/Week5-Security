@@ -13,15 +13,18 @@ import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
+@Table(name = "user")
 public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @Column(unique = true)
     private String email;
+
     private String password;
 
     @Override
