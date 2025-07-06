@@ -30,7 +30,8 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> logIn(@RequestBody LoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> logIn(@RequestBody LoginDTO loginDTO, HttpServletRequest request,
+                                        HttpServletResponse response) {
          String token = authService.logIn(loginDTO);
 
         Cookie cookie = new Cookie("token", token);

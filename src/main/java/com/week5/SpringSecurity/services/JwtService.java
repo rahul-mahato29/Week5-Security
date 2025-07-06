@@ -22,7 +22,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-
+//  create the token
     public String generateToken(UserEntity user){
         return Jwts.builder()
                 .setSubject(user.getId().toString())
@@ -34,6 +34,7 @@ public class JwtService {
                 .compact();
     }
 
+//  verify the token
     public Long getUserIdFromToken(String token){
         Claims claims = Jwts
                 .parserBuilder()
