@@ -23,13 +23,24 @@ public class JwtService {
     }
 
 //  create the token
-    public String generateToken(UserEntity user){
+    //1. Access Token
+    public String generateAccessToken(UserEntity user){
         return Jwts.builder()
                 .setSubject(user.getId().toString())
                 .claim("email", user.getEmail())
                 .claim("roles", Set.of("ADMIN", "USER"))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000*60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*10)) //expires in 10min
+                .signWith(getSecretKey())
+                .compact();
+    }
+
+    //2. Refresh Token
+    public String generateRefreshToken(UserEntity user){
+        return Jwts.builder()
+                .setSubject(user.getId().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L*60*60*24*30*6)) //expires in 6month
                 .signWith(getSecretKey())
                 .compact();
     }
