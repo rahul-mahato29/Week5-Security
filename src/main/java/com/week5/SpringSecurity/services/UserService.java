@@ -7,11 +7,9 @@ import com.week5.SpringSecurity.entities.UserEntity;
 import com.week5.SpringSecurity.exceptions.ResourceNotFoundException;
 import com.week5.SpringSecurity.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -38,6 +37,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User with id " + userId + " not found"));
     }
 
+    public UserEntity getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElse(null);
+    }
+
     public UserDTO signUp(SingUpDTO singUpDTO) {
         Optional<UserEntity> user = userRepository.findByEmail(singUpDTO.getEmail());
         if(user.isPresent()){
@@ -49,5 +53,9 @@ public class UserService implements UserDetailsService {
         UserEntity savedUser = userRepository.save(toBeCreatedUser);
 
         return modelMapper.map(savedUser, UserDTO.class);
+    }
+
+    public UserEntity save(UserEntity newUser) {
+        return userRepository.save(newUser);
     }
 }

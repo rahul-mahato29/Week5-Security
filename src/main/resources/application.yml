@@ -1,0 +1,9 @@
+#OAuth2
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${google_clientId}
+            client-secret: ${google_clientSecret}
