@@ -21,7 +21,6 @@ public class SessionService {
     //create a new session
     public void generateNewSession(UserEntity user, String refreshToken) {
         List<SessionEntity> userSessions = sessionRepository.findByUser(user);
-        System.out.println(userSessions);
 
         //checking if user session limit is exceeded or not ?
         if(userSessions.size() == SESSION_LIMIT) {
